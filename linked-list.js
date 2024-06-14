@@ -1,25 +1,27 @@
-class Node {
-  constructor(value = null, next = null) {
-    this.value = value;
-    this.next = next;
-  }
-}
+import Node from './node.js';
 
-class LinkedList {
+export default class LinkedList {
   constructor() {
     this.head = null;
   }
 
   append(value) {
-    let current = this.head;
-    while (current.next != null) {
-      current = current.next;
+    if (this.head == null) {
+      this.prepend(value);
+    } else {
+      let current = this.head;
+      while (current.next != null) {
+        current = current.next;
+      }
+      current.next = new Node(value);
     }
-    current.next = new Node(value);
   }
 
   prepend(value) {
-    let temp = this.head;
+    let temp = null;
+    if (this.head != null) {
+      temp = this.head;
+    }
     this.head = new Node(value);
     this.head.next = temp;
   }
@@ -34,7 +36,7 @@ class LinkedList {
     return count;
   }
 
-  head() {
+  getHead() {
     return this.head;
   }
 
@@ -90,7 +92,7 @@ class LinkedList {
   toString() {
     let listString = '';
     let current = this.head;
-    while (current.next != null) {
+    while (current != null) {
       listString += `( ${current.value} ) -> `;
       current = current.next;
     }
@@ -114,6 +116,6 @@ class LinkedList {
     while (++count != index) {
       current = current.next;
     }
-    current = current.next.next;
+    current.next = current.next.next;
   }
 }
