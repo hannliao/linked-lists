@@ -84,6 +84,7 @@ export default class LinkedList {
       if (current.value === value) {
         return index;
       }
+      current = current.next;
       index++;
     }
     return null;

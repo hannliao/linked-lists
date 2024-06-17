@@ -22,7 +22,7 @@ linkedList.pop();
 console.log('linked list (after pop): ' + linkedList.toString());
 console.log('linked list contains "d": ' + linkedList.contains('d'));
 console.log('linked list contains "c": ' + linkedList.contains('c'));
-console.log('index of "a" in the linked list: ' + linkedList.find('a'));
+console.log('index of "b" in the linked list: ' + linkedList.find('b'));
 
 linkedList.insertAt('e', 2);
 console.log(
