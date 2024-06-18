@@ -10,7 +10,7 @@ export default class LinkedList {
       this.prepend(value);
     } else {
       let current = this.head;
-      while (current.next != null) {
+      while (current.next !== null) {
         current = current.next;
       }
       current.next = new Node(value);
@@ -19,7 +19,7 @@ export default class LinkedList {
 
   prepend(value) {
     let temp = null;
-    if (this.head != null) {
+    if (this.head !== null) {
       temp = this.head;
     }
     this.head = new Node(value);
@@ -29,7 +29,7 @@ export default class LinkedList {
   size() {
     let count = 0;
     let current = this.head;
-    while (current != null) {
+    while (current !== null) {
       current = current.next;
       count++;
     }
@@ -42,33 +42,48 @@ export default class LinkedList {
 
   tail() {
     let current = this.head;
-    while (current.next != null) {
+    if (current === null) {
+      return null;
+    }
+    while (current.next !== null) {
       current = current.next;
     }
     return current;
   }
 
   at(index) {
-    let count = 0;
+    if (index < 0 || index > this.size()) {
+      return null;
+    }
+
     let current = this.head;
-    while (count != index) {
+    for (let i = 0; i < index; i++) {
       current = current.next;
-      count++;
+      if (current === null) return null;
     }
     return current;
   }
 
   pop() {
     let current = this.head;
-    while (current.next.next != null) {
+    let prev = null;
+    if (current === null) {
+      return;
+    }
+    if (current.next === null) {
+      this.head = null;
+      return;
+    }
+    while (current.next !== null) {
+      prev = current;
       current = current.next;
     }
-    current.next = null;
+    prev.next = null;
   }
 
   contains(value) {
     let current = this.head;
-    while (current != null) {
+    while (current !== null) {
       if (current.value === value) {
         return true;
       }
@@ -80,7 +95,7 @@ export default class LinkedList {
   find(value) {
     let index = 0;
     let current = this.head;
-    while (current != null) {
+    while (current !== null) {
       if (current.value === value) {
         return index;
       }
@@ -93,7 +108,7 @@ export default class LinkedList {
   toString() {
     let listString = '';
     let current = this.head;
-    while (current != null) {
+    while (current !== null) {
       listString += `( ${current.value} ) -> `;
       current = current.next;
     }
@@ -101,22 +116,41 @@ export default class LinkedList {
   }
 
   insertAt(value, index) {
-    let count = 0;
-    let current = this.head;
-    let node = new Node(value);
-    while (++count != index) {
-      current = current.next;
+    if (index < 0 || index > this.size()) {
+      return null;
     }
-    node.next = current.next;
-    current.next = node;
+
+    let current = this.head;
+    let prev = null;
+    if (current === null || index === 0) {
+      this.prepend(value);
+    } else {
+      for (let i = 0; i < index; i++) {
+        prev = current;
+        current = current.next;
+      }
+      let temp = new Node(value);
+      prev.next = temp;
+      temp.next = current;
+    }
   }
 
   removeAt(index) {
-    let count = 0;
-    let current = this.head;
-    while (++count != index) {
-      current = current.next;
+    if (index < 0 || index > this.size()) {
+      return;
     }
-    current.next = current.next.next;
+
+    let current = this.head;
+    let prev = null;
+    if (current === null) {
+      return;
+    } else {
+      for (let i = 0; i < index; i++) {
+        prev = current;
+        current = current.next;
+        if (current === null) return;
+      }
+      prev.next = current.next;
+    }
   }
 }

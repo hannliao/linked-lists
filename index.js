@@ -7,29 +7,41 @@ linkedList.prepend('a');
 linkedList.append('c');
 linkedList.append('d');
 
-console.log('linked list: ' + linkedList.toString());
-console.log('size: ' + linkedList.size());
-console.log('head:');
-console.log(linkedList.getHead());
-console.log('tail:');
-console.log(linkedList.tail());
-console.log('at index 4:');
-console.log(linkedList.at(4));
-console.log('at index 2:');
-console.log(linkedList.at(2));
+console.log(linkedList.toString()); // ( a ) -> ( b ) -> ( c ) -> ( d ) -> null
+console.log(linkedList.size()); // 4
+
+console.log(linkedList.getHead()); // Node {value: 'a', next: Node { value: 'b', next: Node { value: 'c', next: [Node] } }}
+console.log(linkedList.tail()); // Node { value: 'd', next: null }
+console.log(linkedList.at(3)); // Node { value: 'd', next: null }
+console.log(linkedList.at(5)); // null
 
 linkedList.pop();
-console.log('linked list (after pop): ' + linkedList.toString());
-console.log('linked list contains "d": ' + linkedList.contains('d'));
-console.log('linked list contains "c": ' + linkedList.contains('c'));
-console.log('index of "b" in the linked list: ' + linkedList.find('b'));
+console.log(linkedList.toString()); // ( a ) -> ( b ) -> ( c ) -> null
+console.log(linkedList.contains('d')); // false
+console.log(linkedList.contains('c')); // true
+console.log(linkedList.find('b')); // 1
 
 linkedList.insertAt('e', 2);
-console.log(
-  'linked list (after inserting "e" at index 2): ' + linkedList.toString()
-);
+console.log(linkedList.toString()); // ( a ) -> ( b ) -> ( e ) -> ( c ) -> null
+linkedList.insertAt('f', 0);
+console.log(linkedList.toString()); // ( f ) -> ( a ) -> ( b ) -> ( e ) -> ( c ) -> null
 
-linkedList.removeAt(1);
-console.log(
-  'linked list (after removing node at index 1): ' + linkedList.toString()
-);
+linkedList.removeAt(5); // does not do anything when index is not found
+console.log(linkedList.toString()); // ( f ) -> ( a ) -> ( b ) -> ( e ) -> ( c ) -> null
+linkedList.removeAt(4);
+console.log(linkedList.toString()); // ( f ) -> ( a ) -> ( b ) -> ( e ) -> null
+
+const emptyList = new LinkedList();
+
+console.log(emptyList.size()); // 0
+console.log(emptyList.getHead()); // null
+console.log(emptyList.tail()); // null
+console.log(emptyList.at(0)); // null
+emptyList.pop();
+console.log(emptyList.toString()); // null
+console.log(emptyList.contains('anything')); // false
+console.log(emptyList.find('something')); // null
+emptyList.removeAt(0);
+console.log(emptyList.toString()); // null
+emptyList.insertAt('no longer empty!', 0);
+console.log(emptyList.toString()); // ( no longer empty! ) -> null
